@@ -1,14 +1,16 @@
 """Console script for timesheet."""
 import sys
 import click
+from timesheet import timesheet
 
 
 @click.command()
-def main(args=None):
-    """Console script for timesheet."""
-    click.echo("Replace this message by putting your code into "
-               "timesheet.cli.main")
+@click.option('-s', '--server', type=(str))
+def main(server):
     click.echo("See click documentation at https://click.palletsprojects.com/")
+    tasks = timesheet.tasks(timesheet.get_config(server))
+    for t in tasks:
+        click.secho(t['name'], fg='green')
     return 0
 
 
