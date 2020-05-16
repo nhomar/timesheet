@@ -26,6 +26,12 @@ def get_config(server='localhost', user='admin'):
     return config[server]
 
 
+def task_by_id(config, id=0):
+    odoo = ODOO(config['host'], port=int(config['port']))
+    odoo.login(config['dbname'], config['username'], config['password'])
+    return odoo.execute('project.task', 'read', [id], ['name'])
+
+
 def tasks(config, domain=[]):
     odoo = ODOO(config['host'], port=int(config['port']))
     odoo.login(config['dbname'], config['username'], config['password'])
